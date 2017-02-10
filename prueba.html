@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="css/framework7.material.min.css">
+    <link rel="stylesheet" href="css/framework7.material.colors.min.css">
+<title>My App</title>
+</head>
+<body>
+<div class="views">
+			<div class="view view-main">
+				<div class="pages">
+					<div data-page="index" class="page navbar-fixed">
+						<div class="page-content pull-to-refresh-content">
+						  	<div class="pull-to-refresh-layer">
+						    	<div class="preloader"></div>
+						    	<div class="pull-to-refresh-arrow"></div>
+						 	</div>
+						 </div>
+					</div>
+				</div>
+			</div>
+</div>
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/numeral.min.js"></script>
+<script>
+var myApp = new Framework7({
+material: true
+});
+var $$ 			= Dom7;
+var _DATAVEF 		= {};
+var _DATACLP 		= {};
+var _DATABTCVEF 	= {};
+var _DATASBTC 	= {};
+var mainView = myApp.addView('.view-main');
+
+var _USDP 	= [];
+var _USDD 	= [];
+var _USDC 	= [];
+var _USDCT 	= [];
+var _USDPM 	= [];
+var _USDPT 	= [];
+var _USDRV 	= [];
+var _USDT 	= [];
+var _USDT2 	= [];
+
+usd = function(){
+	$.getJSON('https://s3.amazonaws.com/dolartoday/data.json', function (data) 
+	 {
+			_USDP 	= ['PRECIO USD/VEF',numeral(parseFloat(data.USD.dolartoday)).format('0,0.00'),'Bs.'];
+			_USDD 	= ['DICOM USD/VEF',numeral(parseFloat(data.USD.sicad2)).format('0,0.00'),'Bs.'];
+			_USDC 	= ['CUCUTA EFECTIVO',numeral(parseFloat(data.USD.efectivo_real)).format('0,0.00'),'Bs.'];
+			_USDCT 	= ['CUCUCTA TRANS',numeral(parseFloat(data.USD.transferencia)).format('0,0.00'),'Bs.'];
+			_USDPM 	= ['PROMEDIO',numeral(parseFloat(data.USD.promedio)).format('0,0.00'),'Bs.'];  
+			_USDPT 	= ['PETROLEO',data.MISC.petroleo,'$'];
+			_USDRV 	= ['RESERVAS BCV',data.MISC.reservas,'$mm'];
+			_USDT 	= ['FECHA',data._timestamp.dia,''];
+			_USDT2 	= ['FECHA N',data._timestamp.fecha_nice,''];
+	   		_Bsf 	=  parseFloat(data.USD.dolartoday);
+
+		_DATAVEF = 
+		{
+	        'T':'Mercado USD Venezuela',
+	        'R1':_USDPT,
+	        'R2':_USDRV,
+	        'R3':_USDC,
+	        'R4':_USDPM,
+	        'R5':_USDP,
+	        'R6':_USDCT,
+	        'R6':_USDD
+	    }
+	     
+	})
+
+}
+clp = function (){
+	$.getJSON('http://www.mindicador.cl/api', function (data2) 
+	{
+	    var _CUF 	= [data2.uf.nombre,numeral(parseFloat(data2.uf.valor)).format('0,0.00'),data2.uf.fecha,'$ CLP'];
+	    var _CUSD 	= [data2.dolar.nombre,numeral(parseFloat(data2.dolar.valor)).format('0,0.00'),data2.dolar.fecha,'$ CLP'];
+	    var _CUTM 	= [data2.utm.nombre,numeral(parseFloat(data2.utm.valor)).format('0,0.00'),data2.utm.fecha,'$ CLP'];
+	    var _CLC 	= [data2.libra_cobre.nombre,numeral(parseFloat(data2.libra_cobre.valor)).format('0,0.00'),data2.libra_cobre.fecha,'$ USD'];
+	    var _CID 	= [data2.tasa_desempleo.nombre,numeral(parseFloat(data2.tasa_desempleo.valor)).format('0,0.00'),data2.tasa_desempleo.fecha,'%'];
+	    var _CMT 	= ['FECHA',data2.fecha];
+	        _CLP 	=  parseFloat(data2.dolar.valor);
+	    
+	 	_DATACLP = 
+	 	{
+	        'T':'Mercado Chileno',
+	        'R1': _CUF,
+	        'R2': _CUSD,
+	        'R3': _CUTM,
+	        'R4': _CLC, 
+	        'R5': _CID,
+	        'R6': _CMT,
+	    }
+	})
+}
+btc = function(){
+	$.getJSON('http://api.bitcoinvenezuela.com/', function (data3) {
+	        var _BtcUsd 	= ['Valor BTC/USD',numeral(parseInt(data3.BTC.USD)).format('0,0'),'$ USD'];
+	        var _BtcVef 	= ['Valor BTC/VEF',numeral(parseInt(data3.BTC.VEF)).format('0,0'),' Bs.'];
+	        var _BtcLBUsd 	= ['Valor BTC/LocalBitcoins Aprox.',numeral(parseInt(data3.LocalBitcoins_coupons.USD)).format('0,0'),' Bs.'];
+	        var _BtcLBXVE 	= ['Valor VEF/LocalBitcoins Aprox?',numeral(parseInt(data3.LocalBitcoins_coupons.XVE)).format('0,0'),' Bs.'];
+	        var _BtcTime 	= ['Fecha',new Date(data3.time.timestamp),''];
+
+
+		_DATABTCVEF = 
+		{
+	        'T':'Mercado BTC Venezuela',
+	        'R1':_BtcUsd,
+	        'R2':_BtcVef,
+	        'R3':_BtcLBUsd,
+	        'R4':_BtcLBXVE,
+	        'R5':_BtcTime
+	    }
+	     
+	})
+}
+coinDeskBtc = function(){
+	/*$.getJSON('https://api.coindesk.com/v1/bpi/currentprice/CNY.json', function (data3) {
+	    var _USDP 	= ['PRECIO USD/VEF',numeral(parseFloat(data3.USD.dolartoday)).format('0,0.00'),'Bs.'];
+	    var _USDD 	= ['DICOM USD/VEF',numeral(parseFloat(data3.USD.sicad2)).format('0,0.00'),'Bs.'];
+	    var _USDC 	= ['CUCUTA EFECTIVO',numeral(parseFloat(data3.USD.efectivo_real)).format('0,0.00'),'Bs.'];
+	    var _USDCT 	= ['CUCUCTA TRANS',numeral(parseFloat(data3.USD.transferencia)).format('0,0.00'),'Bs.'];
+	    var _USDPM 	= ['PROMEDIO',numeral(parseFloat(data3.USD.promedio)).format('0,0.00'),'Bs.'];  
+	    var _USDPT 	= ['PETROLEO',data3.MISC.petroleo,'$'];
+	    var _USDRV 	= ['RESERVAS BCV',data3.MISC.reservas,'$mm'];
+	    var _USDT 	= ['FECHA',data3._timestamp.dia,''];
+	    var _USDT2 	= ['FECHA N',data3._timestamp.fecha_nice,''];
+	   		_Bsf 	=  parseFloat(data3.USD.dolartoday);
+
+		_DATABTCCDK = 
+		{
+	        'T':['titulo','Mercado BTC CoinDesk'],
+	        'R1':_USDPT,
+	        'R2':_USDRV,
+	        'R3':_USDC,
+	        'R4':_USDPM,
+	        'R5':_USDP,
+	        'R6':_USDCT,
+	        'R6':_USDD
+	    }
+	     
+	})*/
+}
+surBtc = function(){
+	$.ajax({
+		url: "https://api.blinktrade.com/api/v1/VEF/ticker?crypto_currency=BTC",
+		dataType: "jsonp"
+	}).done( function ( data4 ) {
+		var _Alto 	= ['ALTO',numeral(parseInt(data4.high)).format('0,0'),'Bs.'];
+		var _Bajo 	= ['BAJO',numeral(parseInt(data4.low)).format('0,0'),'Bs.'];
+		var _Compra = ['COMPRA',numeral(parseInt(data4.buy)).format('0,0'),'Bs.'];
+		var _Venta 	= ['VENTA',numeral(parseInt(data4.sell)).format('0,0'),'Bs.'];
+		var _Last 	= ['ULTIMO',numeral(parseInt(data4.last)).format('0,0'),'Bs.'];
+
+		_DATASBTC = 
+		{
+	        'T':'SURBITCOIN BTC/VEF',
+	        'R1':_Alto,
+	        'R2':_Bajo,
+	        'R3':_Compra,
+	        'R4':_Venta,
+	        'R5':_Last
+	    }
+	})
+}
+$.when(
+ usd(),
+ clp()
+).then(function() {
+  console.log('datos->' + _DATAVEF.R1[0]+' : '+_DATAVEF.R1[1]);
+  console.log('datos->' + _DATACLP.R1[0]+' : '+_DATACLP.R1[1]);
+  console.log('datos->' + _DATABTCVEF.R1[0]+' : '+_DATABTCVEF.R1[1]);
+  console.log('datos->' + _DATASBTC.R1[0]+' : '+_DATASBTC.R1[1]);
+ 
+});
+
+</script>
+</body>
+</html>

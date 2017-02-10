@@ -1,0 +1,1 @@
+Proyecto de app híbrida para visualizar indicadores monetarios VEF/USD/CLP/BTC con apache cordova 3.0 y framework7

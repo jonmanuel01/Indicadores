@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+	<title>Currency Change</title>
+	<link rel="stylesheet" href="css/framework7.material.min.css">
+    <link rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="css/tableB.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+	<body>
+    <div class="statusbar-overlay"></div>
+    <div class="panel-overlay"></div>
+        <!-- form register -->
+        <div data-page="login-screen" class="login-screen">
+          <!-- Default view-page layout -->
+          <div class="view">
+            <div class="page">
+              <!-- page-content has additional login-screen content -->
+              <div class="page-content login-screen-content">
+                <div class="login-screen-title">Registro</div>
+                <!-- Login form -->
+                <form id="form-registro">
+                  <div class="list-block">
+                    <ul>
+                      <li class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title floating-label">Nombre</div>
+                          <div class="item-input">
+                            <input type="text" name="name" id="name" placeholder="Nombre" >
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title floating-label">E-mail</div>
+                          <div class="item-input">
+                            <input type="email" name="email" id="email" placeholder="E-mail">
+                          </div>
+                        </div>
+                      </li>
+                     <!--<li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                        <div class="item-title floating-label">id</div>
+                          <div class="item-input">
+                            <input type="text" id="id" name="id" placeholder="id">
+                          </div>
+                        </div>
+                      </div>
+                    </li>-->
+                    </ul>
+                  </div>
+                  <div class="list-block"> 
+                    <ul>
+                      <li>
+                        <div align="center">
+                            <a href="#" class=" button button-big button-raised button-fill color-blue js-bto-rg">Aceptar</a>
+                        </div>     
+                      </li>
+                      <li>
+                        <div align="center">
+                            <br>
+                            <br>
+                            La información aquí registrada se encuentra protegida y será utilizada sólo para mejorar la experiencia de la App con el usuario.
+                        </div>     
+                      </li>
+                      <li>
+                        <div align="center">
+                            <br>
+                            <a href="#" class="close-login-screen js-cierre"> Registrarse mas tarde </a>
+                        </div>     
+                      </li>
+                    </ul>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- fomr register -->
+		<!-- Views-->
+		<div class="views">
+			<div class="view view-main">
+				<div class="pages">
+					<div data-page="index" class="page navbar-fixed">
+					<!-- nav bar-->
+						<div class="navbar">
+							<div class="navbar-inner">
+								
+								<div class="center"><i class="icon demo-icon-pp"></i>
+								</div>
+								<div class="center sliding"><strong>Indicadores </strong></div>
+								<div class="right">
+									<a href="#" class="link js-refresh">
+										<i class="icon demo-icon-refresh"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<!-- Speed Dial Wrap -->
+						<div class="speed-dial">
+							<a href="#" class="floating-button">
+								<i class="icon icon-plus"></i>
+								<i class="icon icon-close"></i>
+							</a>
+							<div class="speed-dial-buttons">
+
+								<a href="btc.html" class="theme-red"><i class="icon demo-icon-btc"></i></a>
+                <a href="calculator.html" class="theme-orange"><i class="icon demo-icon-calc"></i></a>
+								<a href="about.html" class="theme-lime"><i class="icon demo-icon-question"></i></a>
+							</div>
+						</div>
+						<!-- End of Speed Dial -->
+
+						<div class="page-content">
+						<!--<div class="page-content pull-to-refresh-content">
+						  	<div class="pull-to-refresh-layer">
+						    	<div class="preloader"></div>
+						    	<div class="pull-to-refresh-arrow"></div>
+						 	</div>-->
+							
+
+						    <div class="content-block js-large">
+						      	<div class="list-block cards-list" id="indices"></div>
+								<br>
+							</div>
+                <!--<a href="#" class=" button button-big button-raised button-fill color-red" onclick="register()">Aceptar</a>-->
+                            
+						<!-- Fin el contenido -->
+						</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="js/numeral.min.js"></script>
+		<script type="text/javascript" src="js/framework7.min.js"></script>
+		<script type="text/javascript" src="js/ws-currency.js"></script>
+		
+		
+	
+	</body>
+</html>
